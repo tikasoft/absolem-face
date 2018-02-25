@@ -1,0 +1,40 @@
+<section class="content">
+  <div class="box">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let product of eatMeList">
+
+          <div id="absolem-eatme-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner" (click)="next(product)">
+
+              <div class="item active">
+                <img src="./assets/img/coffee.jpg" alt="First slide" class="img-soft-blur">
+
+                <div class="carousel-caption">
+                  <p class="font-medium">{{product.name}}</p>
+                  <p class="font-small">Bs {{product.price}}</p>
+                </div>
+              </div>
+
+              <div class="item">
+                <img src="./assets/img/coffee.jpg" alt="Second slide" class="img-strong-blur">
+
+                <div class="carousel-caption">
+                  <p class="font-big">{{product.quantity}}</p>
+                </div>
+              </div>
+
+            </div>
+
+            <a *ngIf="product.quantity > 0" class="left carousel-control" (click)="removeFromCart(product)" data-slide="prev">
+              <span class="fa fa-angle-left"></span>
+            </a>
+            <a *ngIf="product.quantity > 0" class="right carousel-control" (click)="addToCart(product)" data-slide="next">
+              <span class="fa fa-angle-right"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
 import { HomeComponent } from './components/home/home.component';
+import { AskForFoodComponent } from './components/ask-for-food/ask-for-food.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AskForFoodComponent
   ],
   imports: [
     BrowserModule,
