@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -8,18 +9,22 @@ import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
 import { HomeComponent } from './components/home/home.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { OrderService } from './services/order.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
