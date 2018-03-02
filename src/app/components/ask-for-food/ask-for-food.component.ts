@@ -22,39 +22,38 @@ export class AskForFoodComponent implements OnInit {
   }
 
   ngOnInit() {
-    // $('.carousel').hammer().on('swipeleft', function(){
-    //   // $(this).carousel('next');
-    //   console.log('left');
-    // })
-    // $('.carousel').hammer().on('swiperight', function(){
-    //   // $(this).carousel('prev'); 
-    //   console.log('next');
-    // })
   }
 
-  addToCart(product) {
+  private addToCart(product) {
     if (!product.quantity) {
       product.quantity = 0;
     }
     product.quantity++;
   }
 
-  removeFromCart(product) {
+  private removeFromCart(product) {
     product.quantity--;
     if (product.quantity === 0) {
       this.prev();
     }
   }
 
-  next(product) {
-    if (!(product.quantity || product.quantity === 0)) {
+  private next(product) {
+    if (!(product.quantity)) {
       $('.carousel').carousel('next');
-      this.addToCart(product);
     }
+    this.addToCart(product);
   }
 
-  prev() {
+  private prev() {
     $('.carousel').carousel('prev');
   }
 
+  swipeRight(product) {
+    this.removeFromCart(product);
+  }
+
+  swipeLeft(product) {
+    this.next(product);
+  }
 }

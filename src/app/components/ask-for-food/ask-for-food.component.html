@@ -2,10 +2,10 @@
   <div class="box">
     <div class="box-body">
       <div class="row">
-        <div class="col-md-4" *ngFor="let product of eatMeList">
+        <div class="col-md-4" *ngFor="let product of eatMeList" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
 
           <div id="absolem-eatme-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
-            <div class="carousel-inner" (click)="next(product)">
+            <div class="carousel-inner" (click)="swipeLeft(product)">
 
               <div class="item active">
                 <img src="./assets/img/coffee.jpg" alt="First slide" class="img-soft-blur">
@@ -26,10 +26,10 @@
 
             </div>
 
-            <a *ngIf="product.quantity > 0" class="left carousel-control" (click)="removeFromCart(product)" data-slide="prev">
+            <a *ngIf="product.quantity > 0" class="left carousel-control" (click)="swipeRight(product)" data-slide="prev">
               <span class="fa fa-angle-left"></span>
             </a>
-            <a *ngIf="product.quantity > 0" class="right carousel-control" (click)="addToCart(product)" data-slide="next">
+            <a *ngIf="product.quantity > 0" class="right carousel-control" (click)="swipeLeft(product)" data-slide="next">
               <span class="fa fa-angle-right"></span>
             </a>
           </div>
