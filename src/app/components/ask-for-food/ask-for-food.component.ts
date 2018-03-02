@@ -14,9 +14,16 @@ export class AskForFoodComponent implements OnInit {
   constructor() {
     this.eatMeList = [
       {
+        id: 1,
         name: 'Café',
         price: 7,
-        imgURL: './assets/img/coffee.jpg'
+        imgURL: './assets/img/coffee2.jpg'
+      },
+      {
+        id: 2,
+        name: 'Salchi',
+        price: 20,
+        imgURL: './assets/img/coffee3.jpg'
       }
     ];
   }
@@ -34,19 +41,19 @@ export class AskForFoodComponent implements OnInit {
   private removeFromCart(product) {
     product.quantity--;
     if (product.quantity === 0) {
-      this.prev();
+      this.prev(product);
     }
   }
 
   private next(product) {
     if (!(product.quantity)) {
-      $('.carousel').carousel('next');
+      $('#eatMe' + product.id).carousel('next');
     }
     this.addToCart(product);
   }
 
-  private prev() {
-    $('.carousel').carousel('prev');
+  private prev(product) {
+    $('#eatMe' + product.id).carousel('prev');
   }
 
   swipeRight(product) {
