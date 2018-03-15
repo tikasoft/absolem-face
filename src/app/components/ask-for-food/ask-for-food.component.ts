@@ -1,34 +1,124 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 declare var $: any;
+declare var Hammer: any;
 
 @Component({
   selector: 'aps-ask-for-food',
   templateUrl: './ask-for-food.component.html',
   styleUrls: ['./ask-for-food.component.scss']
 })
-export class AskForFoodComponent implements OnInit {
+export class AskForFoodComponent implements OnInit, AfterViewInit {
+
+  foodList: Array<any>;
 
   eatMeList: Array<any>;
 
+  drinkMeList: Array<any>;
+
+  pauseCarousel: boolean;
+
   constructor() {
-    this.eatMeList = [
+    this.foodList = [
       {
         id: 1,
-        name: 'Café',
+        name: 'Hamburguesa',
         price: 7,
-        imgURL: './assets/img/coffee2.jpg'
+        imgURL: './assets/img/hamburguer.jpg',
+        type: 'eatMe'
       },
       {
         id: 2,
-        name: 'Salchi',
+        name: 'Hamburguesa',
+        price: 7,
+        imgURL: './assets/img/hamburguer.jpg',
+        type: 'eatMe'
+      },
+      {
+        id: 3,
+        name: 'Hamburguesa',
+        price: 7,
+        imgURL: './assets/img/hamburguer.jpg',
+        type: 'eatMe'
+      },
+      {
+        id: 4,
+        name: 'Hamburguesa',
+        price: 7,
+        imgURL: './assets/img/hamburguer.jpg',
+        type: 'eatMe'
+      },
+      {
+        id: 5,
+        name: 'Hamburguesa',
+        price: 7,
+        imgURL: './assets/img/hamburguer.jpg',
+        type: 'eatMe'
+      },
+      {
+        id: 6,
+        name: 'Café',
         price: 20,
-        imgURL: './assets/img/coffee3.jpg'
-      }
+        imgURL: './assets/img/coffee3.jpg',
+        type: 'drinkMe'
+      },
+      {
+        id: 7,
+        name: 'Café',
+        price: 20,
+        imgURL: './assets/img/coffee3.jpg',
+        type: 'drinkMe'
+      },
+      {
+        id: 8,
+        name: 'Café',
+        price: 20,
+        imgURL: './assets/img/coffee3.jpg',
+        type: 'drinkMe'
+      },
+      {
+        id: 9,
+        name: 'Café',
+        price: 20,
+        imgURL: './assets/img/coffee3.jpg',
+        type: 'drinkMe'
+      },
     ];
+
+    this.eatMeList = this.foodList.filter(
+      food => food.type === 'eatMe'
+    );
+
+    this.drinkMeList = this.foodList.filter(
+      food => food.type === 'drinkMe'
+    );
+
+    this.pauseCarousel = false;
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    $('.carousel').on('slide.bs.carousel', () => {
+      this.pauseCarousel = true;
+    });
+
+    $('.carousel').on('slid.bs.carousel', () => {
+      this.pauseCarousel = false;
+    });
+  }
+
+  swipeRight(product) {
+    if (!this.pauseCarousel) {
+      this.removeFromCart(product);
+    }
+  }
+
+  swipeLeft(product) {
+    if (!this.pauseCarousel) {
+      this.next(product);
+    }
   }
 
   private addToCart(product) {
@@ -39,7 +129,9 @@ export class AskForFoodComponent implements OnInit {
   }
 
   private removeFromCart(product) {
-    product.quantity--;
+    if (product.quantity > 0) {
+      product.quantity--;
+    }
     if (product.quantity === 0) {
       this.prev(product);
     }
@@ -54,13 +146,5 @@ export class AskForFoodComponent implements OnInit {
 
   private prev(product) {
     $('#eatMe' + product.id).carousel('prev');
-  }
-
-  swipeRight(product) {
-    this.removeFromCart(product);
-  }
-
-  swipeLeft(product) {
-    this.next(product);
   }
 }

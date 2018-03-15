@@ -1,40 +1,86 @@
 <section class="content">
-  <div class="box">
-    <div class="box-body">
-      <div class="row">
-        <div class="col-md-4" *ngFor="let product of eatMeList" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
+  <div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#eat_me_tab" data-toggle="tab" aria-expanded="false">Cómeme</a>
+      </li>
+      <li>
+        <a href="#drink_me_tab" data-toggle="tab" aria-expanded="false">Bébeme</a>
+      </li>
+    </ul>
+    <div class="tab-content">
 
-          <div [attr.id]="'eatMe' + product.id" class="carousel slide" data-ride="carousel" data-interval="false">
-            <div class="carousel-inner" (click)="swipeLeft(product)">
-
-              <div class="item active">
-                <img [src]="product.imgURL" alt="First slide" class="img-soft-blur" width="400" height="250">
-
-                <div class="carousel-caption">
-                  <p class="font-medium">{{product.name}}</p>
-                  <p class="font-small">Bs {{product.price}}</p>
+      <div class="tab-pane active" id="eat_me_tab">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-4 col-xs-12 col-sm-6" *ngFor="let product of eatMeList" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
+              <div [attr.id]="'eatMe' + product.id" class="carousel slide" data-ride="carousel" data-interval="0">
+                <div class="carousel-inner" (click)="swipeLeft(product)">
+                  <div class="item active">
+                    <img [src]="product.imgURL" alt="First slide" class="img-soft-blur" width="400" height="250">
+                    <div class="carousel-caption">
+                      <p class="font-medium">{{product.name}}</p>
+                      <p class="font-small">Bs {{product.price}}</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="product.imgURL" alt="Second slide" class="img-strong-blur" width="400" height="250">
+                    <div class="carousel-caption">
+                      <p class="font-big">{{product.quantity}}</p>
+                    </div>
+                  </div>
                 </div>
+                <a *ngIf="product.quantity > 0" class="left carousel-control" (click)="swipeRight(product)" data-slide="prev">
+                  <span class="fa fa-angle-left"></span>
+                </a>
+                <a *ngIf="product.quantity > 0" class="right carousel-control" (click)="swipeLeft(product)" data-slide="next">
+                  <span class="fa fa-angle-right"></span>
+                </a>
               </div>
-
-              <div class="item">
-                <img [src]="product.imgURL" alt="Second slide" class="img-strong-blur" width="400" height="250">
-
-                <div class="carousel-caption">
-                  <p class="font-big">{{product.quantity}}</p>
-                </div>
-              </div>
-
             </div>
-
-            <a *ngIf="product.quantity > 0" class="left carousel-control" (click)="swipeRight(product)" data-slide="prev">
-              <span class="fa fa-angle-left"></span>
-            </a>
-            <a *ngIf="product.quantity > 0" class="right carousel-control" (click)="swipeLeft(product)" data-slide="next">
-              <span class="fa fa-angle-right"></span>
-            </a>
           </div>
         </div>
+        <div class="box-footer">
+          <button type="button" class="btn btn-info pull-right">Procesar pedido</button>
+        </div>
       </div>
+
+      <div class="tab-pane" id="drink_me_tab">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-4  col-xs-12" *ngFor="let product of drinkMeList" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
+              <div [attr.id]="'eatMe' + product.id" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner" (click)="swipeLeft(product)">
+                  <div class="item active">
+                    <img [src]="product.imgURL" alt="First slide" class="img-soft-blur" width="400" height="250">
+                    <div class="carousel-caption">
+                      <p class="font-medium">{{product.name}}</p>
+                      <p class="font-small">Bs {{product.price}}</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="product.imgURL" alt="Second slide" class="img-strong-blur" width="400" height="250">
+                    <div class="carousel-caption">
+                      <p class="font-big">{{product.quantity}}</p>
+                    </div>
+                  </div>
+                </div>
+                <a *ngIf="product.quantity > 0" class="left carousel-control" (click)="swipeRight(product)" data-slide="prev">
+                  <span class="fa fa-angle-left"></span>
+                </a>
+                <a *ngIf="product.quantity > 0" class="right carousel-control" (click)="swipeLeft(product)" data-slide="next">
+                  <span class="fa fa-angle-right"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button type="button" class="btn btn-info pull-right">Procesar pedido</button>
+        </div>
+      </div>
+
     </div>
   </div>
+
 </section>
