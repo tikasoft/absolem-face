@@ -1,6 +1,7 @@
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import 'hammerjs';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +35,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })

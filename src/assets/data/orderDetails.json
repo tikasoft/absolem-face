@@ -4,76 +4,87 @@
         "amount": 2,
         "unitPrice": 20,
         "totalPrice": 40,
-        "orderId": 1
+        "orderId": 1,
+        "softDelete": 0
     },
     {
         "product": "Brownie",
         "amount": 1,
         "unitPrice": 17,
         "totalPrice": 17,
-        "orderId": 1
+        "orderId": 1,
+        "softDelete": 0
     },
     {
         "product": "Pie de Limón",
         "amount": 4,
         "unitPrice": 15,
         "totalPrice": 60,
-        "orderId": 1
+        "orderId": 1,
+        "softDelete": 0
     },
     {
         "product": "Té Helado",
         "amount": 5,
         "unitPrice": 10,
         "totalPrice": 50,
-        "orderId": 2
+        "orderId": 2,
+        "softDelete": 0
     },
     {
         "product": "Quesadillas",
         "amount": 3,
         "unitPrice": 15,
         "totalPrice": 45,
-        "orderId": 2
+        "orderId": 2,
+        "softDelete": 0
     },
     {
         "product": "Pie de Limón",
         "amount": 1,
         "unitPrice": 15,
         "totalPrice": 15,
-        "orderId": 2
+        "orderId": 2,
+        "softDelete": 0
     },
     {
         "product": "Hamburguesa",
         "amount": 3,
         "unitPrice": 25,
         "totalPrice": 75,
-        "orderId": 3
+        "orderId": 3,
+        "softDelete": 0
     },
     {
         "product": "Coca Cola Mini",
         "amount": 5,
         "unitPrice": 2,
         "totalPrice": 10,
-        "orderId": 3
+        "orderId": 3,
+        "softDelete": 0
     },
     {
         "product": "Salchipapitss",
         "amount": 3,
         "unitPrice": 20,
         "totalPrice": 60,
-        "orderId": 3
+        "orderId": 3,
+        "softDelete": 0
     },
     {
         "product": "Salchipapitsss",
         "amount": 5,
         "unitPrice": 20,
         "totalPrice": 100,
-        "orderId": 4
+        "orderId": 4,
+        "softDelete": 0
     },
     {
         "product": "Pie de Limón",
         "amount": 5,
         "unitPrice": 15,
         "totalPrice": 75,
-        "orderId": 4
+        "orderId": 4,
+        "softDelete": 0
     }
 ]

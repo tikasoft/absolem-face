@@ -1,10 +1,10 @@
 <section class="content">
-  <div class="box box-warning">
+  <div id="active-orders-box" class="box box-warning collapsed-box">
     <div class="box-header">
       <h3 class="box-title">Ordenes Activas</h3>
       <div class="pull-right box-tools">
-        <button class="btn btn-box-tool" type="button" data-widget="collapse" data-toggle="tooltip" data-original-title="Collapse">
-          <i class="fa fa-minus"></i>
+        <button id="active-orders" class="btn btn-box-tool" type="button" data-widget="collapse" data-toggle="tooltip" data-original-title="Collapse">
+          <i class="fa fa-plus"></i>
         </button>
       </div>
     </div>
@@ -57,16 +57,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let currentOrderDetail of currentOrderDetail.details">
-                <td>{{currentOrderDetail.product}}</td>
-                <td>{{currentOrderDetail.amount}}</td>
-                <td class="hidden-xs">Bs {{currentOrderDetail.unitPrice}}</td>
-                <td>Bs {{currentOrderDetail.totalPrice}}</td>
-                <td>
-                  <button class="btn btn-danger" type="button">
-                    <i class="fa fa-trash-o"></i>
-                  </button>
-                </td>
-                <td></td>
+                <td *ngIf="currentOrderDetail.softDelete === 0">{{currentOrderDetail.product}}</td>
+                <td *ngIf="currentOrderDetail.softDelete === 0">{{currentOrderDetail.amount}}</td>
+                <td *ngIf="currentOrderDetail.softDelete === 0" class="hidden-xs">Bs {{currentOrderDetail.unitPrice}}</td>
+                <td *ngIf="currentOrderDetail.softDelete === 0">Bs {{currentOrderDetail.totalPrice}}</td>
               </tr>
             </tbody>
           </table>
@@ -74,9 +68,9 @@
         <div class="modal-footer">
           <div class="row">
             <div class="text-left col-sm-6 col-xs-6">
-              <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete-order" data-dismiss="modal">
-                <i class="fa fa-trash-o"></i>
-                <label class="hidden-xs">&nbsp;Eliminar</label>
+              <button class="btn btn-default" type="button" data-toggle="modal" data-target="#edit-order" data-dismiss="modal" (click)="addEditableOrderDetail()">
+                <i class="fa fa-pencil"></i>
+                <label class="hidden-xs">&nbsp;Editar</label>
               </button>
             </div>
             <div class="text-right col-sm-6 col-xs-6">
@@ -90,38 +84,64 @@
       </div>
     </div>
   </div>
-  <div class="modal fade in" id="delete-order">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title">Eliminar Orden</h4>
-          </div>
-          <div class="modal-body">
-            <p>¿Esta seguro que quiere eliminar esta orden? Una vez eliminado no podrá hacer ninguna acción sobre esta orden.</p>
-          </div>
-          <div class="modal-footer">
-            <div class="row">
-              <div class="text-left col-sm-6 col-xs-6">
-                <button class="btn btn-danger" type="button">Eliminar</button>
-              </div>
-              <div class="text-right col-sm-6 col-xs-6">
-                <button class="btn btn-success" type="button">Cancelar</button>
-              </div>
+
+  <div class="modal fade in" id="edit-order">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Editar Orden</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th class="text-center">Cantidad</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let editOrderDetail of orderDetailsToEdit" [ngClass]="{'disabled-row': editOrderDetail.softDelete === 1, 'disabled-row:hover': editOrderDetail.softDelete === 1}">
+                <td>{{editOrderDetail.product}}</td>
+                <td class="text-center" *ngIf="editOrderDetail.softDelete === 0">
+                  <input name="amount" type="number" class="form-control input-sm edit-input-width text-center" min="0" [value]="editOrderDetail.amount" [(ngModel)]="editOrderDetail.amount">
+                </td>
+                <td class="text-center" *ngIf="editOrderDetail.softDelete === 1">
+                  ----
+                </td>
+                <td *ngIf="editOrderDetail.softDelete === 0">
+                    <a type="button" (click)="deleteOrderDetail(editOrderDetail)"><i class="fa fa-trash-o text-danger icon-big-size"></i></a>
+                </td>
+                <td *ngIf="editOrderDetail.softDelete == 1">
+                    <a type="button" (click)="returnOrderDetail(editOrderDetail)"><i class="fa fa-reply"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="text-left col-sm-6 col-xs-6">
+              <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#order-detail" data-dismiss="modal" (click)="updateOrderDetail()">Guardar</button>
+            </div>
+            <div class="text-right col-sm-6 col-xs-6">
+              <button class="btn btn-default" type="button" data-toggle="modal" data-target="#order-detail" data-dismiss="modal">Cancelar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-  <div class="box box-success collapsed-box">
+  <div id="payed-orders-box" class="box box-success">
     <div class="box-header">
       <h3 class="box-title">Ordenes Pagadas</h3>
       <div class="pull-right box-tools">
         <button class="btn btn-box-tool" type="button" data-widget="collapse" data-toggle="tooltip" data-original-title="Collapse">
-          <i class="fa fa-plus"></i>
+          <i class="fa fa-minus"></i>
         </button>
       </div>
     </div>
