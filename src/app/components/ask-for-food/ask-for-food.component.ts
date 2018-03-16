@@ -18,6 +18,8 @@ export class AskForFoodComponent implements OnInit, AfterViewInit {
 
   pauseCarousel: boolean;
 
+  orderDetails: Array<any>;
+
   constructor() {
     this.foodList = [
       {
@@ -94,6 +96,8 @@ export class AskForFoodComponent implements OnInit, AfterViewInit {
     );
 
     this.pauseCarousel = false;
+
+    this.orderDetails = new Array();
   }
 
   ngOnInit() {
@@ -121,6 +125,32 @@ export class AskForFoodComponent implements OnInit, AfterViewInit {
     }
   }
 
+  buildOrder() {
+    this.orderDetails = new Array();
+
+    let orders = this.foodList.filter(
+      food => food.quantity > 0
+    );
+
+    orders.forEach((current) => {
+      this.orderDetails.push({
+        product: current.name,
+        amount: current.quantity,
+        unitPrice: current.price,
+        totalPrice: current.price * current.quantity,
+        softDelete: 0
+      });
+    });
+  }
+
+  deleteOrderDetail(currentData): void {
+    currentData.softDelete = 1;
+  }
+
+  returnOrderDetail(currentData): void {
+    currentData.softDelete = 0;
+  }
+
   private addToCart(product) {
     if (!product.quantity) {
       product.quantity = 0;
@@ -134,6 +164,7 @@ export class AskForFoodComponent implements OnInit, AfterViewInit {
     }
     if (product.quantity === 0) {
       this.prev(product);
+      product.quantity = null;
     }
   }
 
