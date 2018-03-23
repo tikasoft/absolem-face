@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 declare var $: any;
 declare var Hammer: any;
@@ -18,7 +20,16 @@ export class AskForFoodComponent implements OnInit, AfterViewInit {
 
   pauseCarousel: boolean;
 
-  constructor() {
+  private itemsCollection: AngularFirestoreCollection<any>;
+
+  items: Observable<any[]>;
+
+  constructor(private afs: AngularFirestore) {
+    this.itemsCollection = afs.collection<any>('products');
+    this.items = this.itemsCollection.valueChanges();
+    this.items.subscribe(product => {
+      console.log(product);
+    });
     this.foodList = [
       {
         id: 1,
