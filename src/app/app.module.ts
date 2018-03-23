@@ -2,6 +2,8 @@ import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angu
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import 'hammerjs';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +39,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase, 'absolem'),
+    AngularFirestoreModule,
     AppRoutingModule
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
