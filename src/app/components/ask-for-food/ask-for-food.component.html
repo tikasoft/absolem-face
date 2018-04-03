@@ -13,7 +13,7 @@
       <div class="tab-pane active" id="eat_me_tab">
         <div id="eatMeBody" class="box-body">
           <div class="row">
-            <div class="col-md-4 col-xs-12 col-sm-6" *ngFor="let product of eatMeList" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
+            <div class="col-md-4 col-xs-12 col-sm-6" *ngFor="let product of eatMes | async" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
               <div [attr.id]="'eatMe' + product.id" class="carousel slide" data-ride="carousel" data-interval="0">
                 <div class="carousel-inner" (click)="swipeLeft(product)">
                   <div class="item active">
@@ -48,7 +48,7 @@
       <div class="tab-pane" id="drink_me_tab">
         <div id="drinkMeBody" class="box-body">
           <div class="row">
-            <div class="col-md-4  col-xs-12" *ngFor="let product of drinkMeList" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
+            <div class="col-md-4  col-xs-12" *ngFor="let product of drinkMes | async" (swipeleft)="swipeLeft(product)" (swiperight)="swipeRight(product)">
               <div [attr.id]="'eatMe' + product.id" class="carousel slide" data-ride="carousel" data-interval="false">
                 <div class="carousel-inner" (click)="swipeLeft(product)">
                   <div class="item active">

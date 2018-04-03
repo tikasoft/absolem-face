@@ -1,4 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { IProductId } from '../../interfaces/i-product-id';
+import { IProduct } from '../../interfaces/i-product';
 
 declare var $: any;
 declare var Hammer: any;
@@ -20,80 +24,33 @@ export class AskForFoodComponent implements OnInit, AfterViewInit {
 
   orderDetails: Array<any>;
 
-  constructor() {
-    this.foodList = [
-      {
-        id: 1,
-        name: 'Hamburguesa',
-        price: 7,
-        imgURL: './assets/img/hamburguer.jpg',
-        type: 'eatMe'
-      },
-      {
-        id: 2,
-        name: 'Hamburguesa',
-        price: 7,
-        imgURL: './assets/img/hamburguer.jpg',
-        type: 'eatMe'
-      },
-      {
-        id: 3,
-        name: 'Hamburguesa',
-        price: 7,
-        imgURL: './assets/img/hamburguer.jpg',
-        type: 'eatMe'
-      },
-      {
-        id: 4,
-        name: 'Hamburguesa',
-        price: 7,
-        imgURL: './assets/img/hamburguer.jpg',
-        type: 'eatMe'
-      },
-      {
-        id: 5,
-        name: 'Hamburguesa',
-        price: 7,
-        imgURL: './assets/img/hamburguer.jpg',
-        type: 'eatMe'
-      },
-      {
-        id: 6,
-        name: 'Café',
-        price: 20,
-        imgURL: './assets/img/coffee3.jpg',
-        type: 'drinkMe'
-      },
-      {
-        id: 7,
-        name: 'Café',
-        price: 20,
-        imgURL: './assets/img/coffee3.jpg',
-        type: 'drinkMe'
-      },
-      {
-        id: 8,
-        name: 'Café',
-        price: 20,
-        imgURL: './assets/img/coffee3.jpg',
-        type: 'drinkMe'
-      },
-      {
-        id: 9,
-        name: 'Café',
-        price: 20,
-        imgURL: './assets/img/coffee3.jpg',
-        type: 'drinkMe'
-      },
-    ];
+  eatMes: Observable<IProductId[]>;
 
-    this.eatMeList = this.foodList.filter(
-      food => food.type === 'eatMe'
-    );
+  drinkMes: Observable<IProductId[]>;
 
-    this.drinkMeList = this.foodList.filter(
-      food => food.type === 'drinkMe'
-    );
+  private eatMeCollection: AngularFirestoreCollection<IProduct>;
+
+  private drinkMeCollection: AngularFirestoreCollection<IProduct>;
+
+  constructor(private afs: AngularFirestore) {
+    this.eatMeCollection = afs.collection<any>('products', ref => ref.where('type', '==', 'eatMe'));
+    this.drinkMeCollection = afs.collection<any>('products', ref => ref.where('type', '==', 'drinkMe'));
+
+    this.eatMes = this.eatMeCollection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as IProduct;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    });
+    
+    this.drinkMes = this.drinkMeCollection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as IProduct;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    });
 
     this.pauseCarousel = false;
 
